@@ -8,7 +8,7 @@ resource "aws_dynamodb_table" "dynamodb-table" {
   hash_key       = "ami_id"
   point_in_time_recovery {
     enabled = true
-    }
+  }
 
   attribute {
     name = "ami_id"

@@ -46,11 +46,11 @@ resource "aws_iam_role" "lambda-role" {
 
 
 resource "aws_lambda_function" "db-checker" {
-    #checkov:skip=CKV_AWS_50:No X-ray tracing for lambda required
-    #checkov:skip=CKV_AWS_117:No VPC access required
-    #checkov:skip=CKV_AWS_116:No DLQ required
-    #checkov:skip=CKV_AWS_173:Default AWS lambda encryption enabled
-    #checkov:skip=CKV_AWS_115:No limit for concurrent executions required 
+  #checkov:skip=CKV_AWS_50:No X-ray tracing for lambda required
+  #checkov:skip=CKV_AWS_117:No VPC access required
+  #checkov:skip=CKV_AWS_116:No DLQ required
+  #checkov:skip=CKV_AWS_173:Default AWS lambda encryption enabled
+  #checkov:skip=CKV_AWS_115:No limit for concurrent executions required 
   function_name    = join("", [var.DeploymentName, "-db-checker"])
   role             = aws_iam_role.lambda-role.arn
   handler          = "lambda_function.lambda_handler"

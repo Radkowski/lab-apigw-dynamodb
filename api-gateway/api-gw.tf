@@ -57,7 +57,7 @@ EOF
 resource "aws_cloudwatch_log_group" "api-gw-logs" {
   #checkov:skip=CKV_AWS_158:No encryption required
   #checkov:skip=CKV_AWS_73:No X-Ray tracing required
-  name = join("", ["/custom/",var.DeploymentName, "/API-Gateway-access"])
+  name              = join("", ["/custom/", var.DeploymentName, "/API-Gateway-access"])
   retention_in_days = 365
   tags = {
     Environment = "production"
@@ -96,14 +96,14 @@ resource "aws_api_gateway_deployment" "amicheckerapi-deploy" {
 resource "aws_api_gateway_stage" "amicheckerapi-stage" {
   #checkov:skip=CKV_AWS_73:No X-Ray tracing required
   #checkov:skip=CKV2_AWS_29:TBD if WAF is required
-  deployment_id = aws_api_gateway_deployment.amicheckerapi-deploy.id
-  rest_api_id   = aws_api_gateway_rest_api.amicheckerapi.id
+  deployment_id         = aws_api_gateway_deployment.amicheckerapi-deploy.id
+  rest_api_id           = aws_api_gateway_rest_api.amicheckerapi.id
   cache_cluster_enabled = true
-  cache_cluster_size = 0.5
-  stage_name    = "v1"
+  cache_cluster_size    = 0.5
+  stage_name            = "v1"
   access_log_settings {
     destination_arn = aws_cloudwatch_log_group.api-gw-logs.arn
-    format = templatefile("${path.module}/log-format.tftpl",{})
+    format          = templatefile("${path.module}/log-format.tftpl", {})
   }
 }
 
